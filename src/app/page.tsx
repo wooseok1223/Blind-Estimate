@@ -299,18 +299,6 @@ export default function Home() {
                         <span className="text-gray-500">제품 합계</span>
                         <span>{subtotal.toLocaleString()}원</span>
                       </div>
-                      {installationFee > 0 && (
-                        <div className="flex justify-between">
-                          <span className="text-gray-500">설치비</span>
-                          <span>+{installationFee.toLocaleString()}원</span>
-                        </div>
-                      )}
-                      {discount > 0 && (
-                        <div className="flex justify-between">
-                          <span className="text-gray-500">할인</span>
-                          <span className="text-red-500">-{discount.toLocaleString()}원</span>
-                        </div>
-                      )}
                     </div>
 
                     {/* 총 금액 */}
