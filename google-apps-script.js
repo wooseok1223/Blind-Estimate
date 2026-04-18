@@ -158,6 +158,12 @@ function getCurtainProducts() {
 
 // ===== 견적서 저장 =====
 function saveEstimate(estimate) {
+  // estimate가 없거나 비어있는 경우 방어
+  if (!estimate) {
+    Logger.log('estimate 객체가 없습니다.');
+    return;
+  }
+
   let sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_ESTIMATES);
 
   if (!sheet) {
@@ -171,15 +177,16 @@ function saveEstimate(estimate) {
 
   const items = estimate.items || [];
   const timestamp = new Date().toLocaleString('ko-KR');
-  const estimateId = estimate.id ? estimate.id.slice(0, 8).toUpperCase() : 'N/A';
-  const customerName = estimate.customer ? estimate.customer.name : '';
-  const customerPhone = estimate.customer ? estimate.customer.phone : '';
-  const customerAddress = estimate.customer ? estimate.customer.address : '';
+  const estimateId = estimate.id ? String(estimate.id).slice(0, 8).toUpperCase() : 'N/A';
+  const customer = estimate.customer || {};
+  const customerName = customer.name || '';
+  const customerPhone = customer.phone || '';
+  const customerAddress = customer.address || '';
   const totalAmount = estimate.totalAmount || 0;
   const notes = estimate.notes || '';
 
-  // 견적 항목이 없는 경우
-  if (items.length === 0) {
+  // 견적 항목이 없는 경우에도 고객 정보 저장
+  if (!items || items.length === 0) {
     const row = [
       estimateId,
       timestamp,
@@ -200,18 +207,20 @@ function saveEstimate(estimate) {
       totalAmount,
     ];
     sheet.appendRow(row);
+    Logger.log('견적 저장 완료 (항목 없음): ' + estimateId);
     return;
   }
 
   // 견적 항목 저장
-  items.forEach((item, index) => {
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i] || {};
     const row = [
-      index === 0 ? estimateId : '',
-      index === 0 ? timestamp : '',
-      index === 0 ? customerName : '',
-      index === 0 ? customerPhone : '',
-      index === 0 ? customerAddress : '',
-      index + 1,
+      i === 0 ? estimateId : '',
+      i === 0 ? timestamp : '',
+      i === 0 ? customerName : '',
+      i === 0 ? customerPhone : '',
+      i === 0 ? customerAddress : '',
+      i + 1,
       item.productType === 'blind' ? '블라인드' : '커튼',
       item.productName || '',
       item.room || '',
@@ -221,11 +230,13 @@ function saveEstimate(estimate) {
       item.quantity || 1,
       item.unitPrice || 0,
       item.totalPrice || 0,
-      index === 0 ? notes : (item.memo || ''),
-      index === 0 ? totalAmount : '',
+      i === 0 ? notes : (item.memo || ''),
+      i === 0 ? totalAmount : '',
     ];
     sheet.appendRow(row);
-  });
+  }
+
+  Logger.log('견적 저장 완료: ' + estimateId + ', 항목 수: ' + items.length);
 }
 
 // ===== 견적내역 헤더 =====
