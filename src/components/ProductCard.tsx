@@ -93,32 +93,32 @@ export default function ProductCard({ product, type, onSelect }: ProductCardProp
       </div>
 
       {/* 정보 */}
-      <div className="p-3">
-        <h3 className="font-medium text-gray-800 text-sm mb-1 line-clamp-1">
+      <div className="p-2 md:p-3">
+        <h3 className="font-medium text-gray-800 text-xs md:text-sm mb-0.5 md:mb-1 line-clamp-1">
           {product.name}
         </h3>
         {product.description && (
-          <p className="text-xs text-gray-500 mb-2 line-clamp-1">
+          <p className="text-[10px] md:text-xs text-gray-500 mb-1.5 md:mb-2 line-clamp-1">
             {product.description}
           </p>
         )}
 
         <div className="flex items-center justify-between">
-          <span className="font-bold text-[#8B7355]">
+          <span className="font-bold text-[#8B7355] text-xs md:text-sm">
             {priceLabel}
           </span>
 
           {/* 옵션 표시 */}
           <div className="flex items-center gap-1">
             {type === 'blind' && (product as BlindProduct).motorOption && (
-              <span className="badge badge-option">전동</span>
+              <span className="badge badge-option text-[9px] md:text-[11px]">전동</span>
             )}
           </div>
         </div>
 
         {/* 색상 수 */}
         {product.colors && product.colors.length > 0 && (
-          <div className="mt-2 text-xs text-gray-400">
+          <div className="mt-1 md:mt-2 text-[10px] md:text-xs text-gray-400">
             {product.colors.length}가지 색상
           </div>
         )}

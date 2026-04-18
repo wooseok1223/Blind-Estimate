@@ -10,12 +10,12 @@ interface CustomerFormProps {
 export default function CustomerForm({ customer, onChange }: CustomerFormProps) {
   return (
     <div className="card">
-      <div className="card-header">고객 정보</div>
+      <div className="card-header text-sm md:text-base">고객 정보</div>
       <div className="card-body">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
           {/* 고객명 */}
           <div className="form-group">
-            <label className="form-label">
+            <label className="form-label text-xs md:text-sm">
               고객명 <span className="required">*</span>
             </label>
             <input
@@ -29,7 +29,7 @@ export default function CustomerForm({ customer, onChange }: CustomerFormProps) 
 
           {/* 연락처 */}
           <div className="form-group">
-            <label className="form-label">
+            <label className="form-label text-xs md:text-sm">
               연락처 <span className="required">*</span>
             </label>
             <input
@@ -43,7 +43,7 @@ export default function CustomerForm({ customer, onChange }: CustomerFormProps) 
 
           {/* 주소 */}
           <div className="form-group md:col-span-2">
-            <label className="form-label">
+            <label className="form-label text-xs md:text-sm">
               설치 주소 <span className="required">*</span>
             </label>
             <input
@@ -57,7 +57,7 @@ export default function CustomerForm({ customer, onChange }: CustomerFormProps) 
 
           {/* 이메일 */}
           <div className="form-group">
-            <label className="form-label">이메일 (선택)</label>
+            <label className="form-label text-xs md:text-sm">이메일 (선택)</label>
             <input
               type="email"
               value={customer.email || ''}
@@ -69,7 +69,7 @@ export default function CustomerForm({ customer, onChange }: CustomerFormProps) 
 
           {/* 방문 희망일 */}
           <div className="form-group">
-            <label className="form-label">방문 희망일 (선택)</label>
+            <label className="form-label text-xs md:text-sm">방문 희망일 (선택)</label>
             <input
               type="date"
               value={customer.visitDate || ''}
@@ -80,7 +80,7 @@ export default function CustomerForm({ customer, onChange }: CustomerFormProps) 
         </div>
 
         {/* 안내 */}
-        <div className="mt-6 p-4 bg-gray-50 border border-gray-100 text-sm">
+        <div className="mt-4 md:mt-6 p-3 md:p-4 bg-gray-50 border border-gray-100 text-xs md:text-sm">
           <p className="text-gray-600">
             <span className="text-red-500">*</span> 표시는 필수 입력 항목입니다.
           </p>

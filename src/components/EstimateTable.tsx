@@ -99,7 +99,7 @@ export default function EstimateTable({ items, onRemove }: EstimateTableProps) {
 
                 {/* 사이즈 / 옵션 */}
                 <td>
-                  <p className="text-sm">{item.width}mm × {item.height}mm</p>
+                  <p className="text-sm">{item.width}cm × {item.height}cm</p>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {item.color && (
                       <span className="text-xs text-gray-500">{item.color}</span>
@@ -184,7 +184,7 @@ export default function EstimateTable({ items, onRemove }: EstimateTableProps) {
                 </div>
 
                 <p className="text-sm text-gray-500 mt-1">{item.room}</p>
-                <p className="text-sm text-gray-600">{item.width}mm × {item.height}mm</p>
+                <p className="text-sm text-gray-600">{item.width}cm × {item.height}cm</p>
 
                 <div className="flex flex-wrap gap-1 mt-2">
                   {item.color && (

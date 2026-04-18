@@ -61,8 +61,8 @@ export default function ProductSelector({ onSelect }: ProductSelectorProps) {
   return (
     <div>
       {/* 필터 영역 */}
-      <div className="bg-white border border-gray-100 p-4 mb-4">
-        <div className="flex flex-wrap items-center gap-4">
+      <div className="bg-white border border-gray-100 p-3 md:p-4 mb-3 md:mb-4">
+        <div className="flex flex-wrap items-center gap-2 md:gap-4">
           {/* 타입 필터 */}
           <div className="flex border border-gray-200">
             {[
@@ -73,7 +73,7 @@ export default function ProductSelector({ onSelect }: ProductSelectorProps) {
               <button
                 key={tab.key}
                 onClick={() => setProductType(tab.key as ProductType)}
-                className={`px-4 py-2 text-sm font-medium transition-colors ${
+                className={`px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium transition-colors ${
                   productType === tab.key
                     ? 'bg-[#8B7355] text-white'
                     : 'bg-white text-gray-600 hover:bg-gray-50'
@@ -89,7 +89,7 @@ export default function ProductSelector({ onSelect }: ProductSelectorProps) {
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
-              className="select-field w-auto text-sm"
+              className="select-field w-auto text-xs md:text-sm py-1.5 md:py-2"
             >
               <option value="all">전체 종류</option>
               {productType === 'blind'
@@ -103,7 +103,7 @@ export default function ProductSelector({ onSelect }: ProductSelectorProps) {
           )}
 
           {/* 제품 수 */}
-          <span className="text-sm text-gray-400 ml-auto">
+          <span className="text-xs md:text-sm text-gray-400 ml-auto">
             총 {productType === 'all'
               ? blindProducts.length + curtainProducts.length
               : productType === 'blind'
@@ -116,15 +116,15 @@ export default function ProductSelector({ onSelect }: ProductSelectorProps) {
 
       {/* 블라인드 섹션 */}
       {(productType === 'all' || productType === 'blind') && filteredBlinds.length > 0 && (
-        <section className="mb-6">
+        <section className="mb-4 md:mb-6">
           {productType === 'all' && (
-            <div className="flex items-center gap-2 mb-3 px-1">
-              <h3 className="font-bold text-gray-800">블라인드</h3>
-              <span className="text-sm text-gray-400">{filteredBlinds.length}</span>
+            <div className="flex items-center gap-2 mb-2 md:mb-3 px-1">
+              <h3 className="font-bold text-gray-800 text-sm md:text-base">블라인드</h3>
+              <span className="text-xs md:text-sm text-gray-400">{filteredBlinds.length}</span>
             </div>
           )}
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-3">
             {filteredBlinds.map((product) => (
               <ProductCard
                 key={product.id}
@@ -139,15 +139,15 @@ export default function ProductSelector({ onSelect }: ProductSelectorProps) {
 
       {/* 커튼 섹션 */}
       {(productType === 'all' || productType === 'curtain') && filteredCurtains.length > 0 && (
-        <section className="mb-6">
+        <section className="mb-4 md:mb-6">
           {productType === 'all' && (
-            <div className="flex items-center gap-2 mb-3 px-1">
-              <h3 className="font-bold text-gray-800">커튼</h3>
-              <span className="text-sm text-gray-400">{filteredCurtains.length}</span>
+            <div className="flex items-center gap-2 mb-2 md:mb-3 px-1">
+              <h3 className="font-bold text-gray-800 text-sm md:text-base">커튼</h3>
+              <span className="text-xs md:text-sm text-gray-400">{filteredCurtains.length}</span>
             </div>
           )}
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-3">
             {filteredCurtains.map((product) => (
               <ProductCard
                 key={product.id}

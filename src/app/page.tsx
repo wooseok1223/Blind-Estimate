@@ -120,16 +120,16 @@ export default function Home() {
     <div className="min-h-screen bg-[#f5f5f5]">
       {/* 헤더 */}
       <header className="site-header">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex items-center justify-between h-14">
-            <div className="flex items-center gap-2">
-              <span className="text-xl font-bold text-[#8B7355]">블라인드</span>
-              <span className="text-sm text-gray-400">|</span>
-              <span className="text-sm text-gray-600">맞춤 견적 시스템</span>
+        <div className="max-w-6xl mx-auto px-3 md:px-4">
+          <div className="flex items-center justify-between h-12 md:h-14">
+            <div className="flex items-center gap-1.5 md:gap-2 min-w-0">
+              <span className="text-lg md:text-xl font-bold text-[#8B7355] flex-shrink-0">블라인드</span>
+              <span className="text-gray-400 hidden sm:inline">|</span>
+              <span className="text-xs md:text-sm text-gray-600 hidden sm:inline truncate">맞춤 견적 시스템</span>
             </div>
             <button
               onClick={handleReset}
-              className="text-sm text-gray-500 hover:text-gray-700 px-3 py-1 border border-gray-200 hover:border-gray-300"
+              className="text-xs md:text-sm text-gray-500 hover:text-gray-700 px-2 md:px-3 py-1 border border-gray-200 hover:border-gray-300 flex-shrink-0"
             >
               초기화
             </button>
@@ -154,7 +154,7 @@ export default function Home() {
       </nav>
 
       {/* 메인 컨텐츠 */}
-      <main className="max-w-6xl mx-auto px-4 py-6">
+      <main className="max-w-6xl mx-auto px-3 md:px-4 py-4 md:py-6">
         {/* 알림 메시지 */}
         {message && (
           <div className={`alert ${message.type === 'success' ? 'alert-success' : 'alert-error'} mb-6`}>
@@ -166,9 +166,9 @@ export default function Home() {
         {/* Step 1: 제품 선택 */}
         {step === 'select' && (
           <div className="animate-fade-in">
-            <div className="mb-6">
-              <h2 className="section-title">제품 선택</h2>
-              <p className="text-gray-500 text-sm -mt-3 mb-4">
+            <div className="mb-4 md:mb-6">
+              <h2 className="section-title text-base md:text-lg">제품 선택</h2>
+              <p className="text-gray-500 text-xs md:text-sm -mt-3 mb-3 md:mb-4">
                 원하시는 제품을 선택하시면 사이즈와 옵션을 입력할 수 있습니다.
               </p>
             </div>
@@ -177,26 +177,33 @@ export default function Home() {
 
             {/* 하단 고정 바 */}
             {items.length > 0 && (
-              <div className="floating-bar p-4">
-                <div className="max-w-6xl mx-auto flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-gray-500">선택 제품</span>
-                      <span className="bg-[#8B7355] text-white px-2.5 py-0.5 text-sm font-medium">
-                        {items.length}개
-                      </span>
+              <div className="floating-bar">
+                <div className="max-w-6xl mx-auto px-3 md:px-4 py-3 md:py-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-2 md:gap-4 min-w-0">
+                      <div className="flex items-center gap-1.5 md:gap-2 flex-shrink-0">
+                        <span className="text-xs md:text-sm text-gray-500 hidden sm:inline">선택</span>
+                        <span className="bg-[#8B7355] text-white px-2 py-0.5 text-xs md:text-sm font-medium">
+                          {items.length}개
+                        </span>
+                      </div>
+                      <div className="hidden sm:flex items-center border-l border-gray-200 pl-3 md:pl-4">
+                        <span className="text-xs md:text-sm text-gray-500">예상 금액</span>
+                        <span className="ml-1.5 md:ml-2 font-bold text-base md:text-lg">{subtotal.toLocaleString()}원</span>
+                      </div>
+                      {/* 모바일에서만 금액 표시 */}
+                      <div className="sm:hidden text-right">
+                        <span className="font-bold text-sm">{subtotal.toLocaleString()}원</span>
+                      </div>
                     </div>
-                    <div className="hidden sm:block border-l border-gray-200 pl-4">
-                      <span className="text-sm text-gray-500">예상 금액</span>
-                      <span className="ml-2 font-bold text-lg">{subtotal.toLocaleString()}원</span>
-                    </div>
+                    <button
+                      onClick={() => setStep('review')}
+                      className="btn-primary px-4 md:px-6 py-2.5 text-sm md:text-base flex-shrink-0 whitespace-nowrap"
+                    >
+                      <span className="hidden sm:inline">견적 확인하기 →</span>
+                      <span className="sm:hidden">견적 확인 →</span>
+                    </button>
                   </div>
-                  <button
-                    onClick={() => setStep('review')}
-                    className="btn-primary px-6 py-2.5"
-                  >
-                    견적 확인하기 →
-                  </button>
                 </div>
               </div>
             )}
@@ -206,19 +213,19 @@ export default function Home() {
         {/* Step 2: 견적 확인 */}
         {step === 'review' && (
           <div className="animate-fade-in">
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-4 md:mb-6">
               <div>
-                <h2 className="section-title mb-0">견적 확인</h2>
+                <h2 className="section-title mb-0 text-base md:text-lg">견적 확인</h2>
               </div>
               <button
                 onClick={() => setStep('select')}
-                className="btn-secondary px-4 py-2 text-sm"
+                className="btn-secondary px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm"
               >
                 + 제품 추가
               </button>
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-6">
+            <div className="grid lg:grid-cols-3 gap-4 md:gap-6">
               {/* 견적 테이블 */}
               <div className="lg:col-span-2">
                 <EstimateTable items={items} onRemove={handleRemoveItem} />
@@ -238,17 +245,17 @@ export default function Home() {
                 />
 
                 {/* 버튼 */}
-                <div className="mt-4 space-y-2">
+                <div className="mt-3 md:mt-4 space-y-2">
                   <button
                     onClick={() => setStep('customer')}
                     disabled={items.length === 0}
-                    className="btn-primary w-full py-3 text-base disabled:opacity-50"
+                    className="btn-primary w-full py-3 text-sm md:text-base disabled:opacity-50"
                   >
                     견적 문의하기
                   </button>
                   <button
                     onClick={() => setStep('select')}
-                    className="btn-secondary w-full py-3"
+                    className="btn-secondary w-full py-3 text-sm md:text-base"
                   >
                     이전 단계
                   </button>
@@ -261,14 +268,14 @@ export default function Home() {
         {/* Step 3: 고객 정보 */}
         {step === 'customer' && (
           <div className="animate-fade-in">
-            <div className="mb-6">
-              <h2 className="section-title">문의 정보 입력</h2>
-              <p className="text-gray-500 text-sm -mt-3 mb-4">
+            <div className="mb-4 md:mb-6">
+              <h2 className="section-title text-base md:text-lg">문의 정보 입력</h2>
+              <p className="text-gray-500 text-xs md:text-sm -mt-3 mb-4">
                 연락받으실 정보를 입력해주시면 빠르게 상담 연락 드리겠습니다.
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-6">
+            <div className="grid lg:grid-cols-3 gap-4 md:gap-6">
               {/* 고객 정보 폼 */}
               <div className="lg:col-span-2">
                 <CustomerForm customer={customer} onChange={handleCustomerChange} />
@@ -277,25 +284,25 @@ export default function Home() {
               {/* 견적 요약 */}
               <div className="lg:col-span-1">
                 <div className="card">
-                  <div className="card-header">
+                  <div className="card-header text-sm md:text-base">
                     견적 요약
                   </div>
                   <div className="card-body">
                     {/* 제품 목록 */}
-                    <div className="space-y-3 mb-4 pb-4 border-b border-gray-100">
+                    <div className="space-y-2 md:space-y-3 mb-3 md:mb-4 pb-3 md:pb-4 border-b border-gray-100">
                       {items.map((item) => (
-                        <div key={item.id} className="flex justify-between text-sm">
-                          <div>
-                            <span className="text-gray-800">{item.productName}</span>
-                            <span className="text-gray-400 ml-1">({item.room})</span>
+                        <div key={item.id} className="flex justify-between text-xs md:text-sm gap-2">
+                          <div className="min-w-0 flex-1">
+                            <span className="text-gray-800 truncate block">{item.productName}</span>
+                            <span className="text-gray-400 text-xs">({item.room})</span>
                           </div>
-                          <span className="font-medium">{item.totalPrice.toLocaleString()}원</span>
+                          <span className="font-medium flex-shrink-0">{item.totalPrice.toLocaleString()}원</span>
                         </div>
                       ))}
                     </div>
 
                     {/* 금액 정보 */}
-                    <div className="space-y-2 text-sm">
+                    <div className="space-y-1.5 md:space-y-2 text-xs md:text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-500">제품 합계</span>
                         <span>{subtotal.toLocaleString()}원</span>
@@ -315,21 +322,21 @@ export default function Home() {
                     </div>
 
                     {/* 총 금액 */}
-                    <div className="mt-4 pt-4 border-t border-gray-200">
+                    <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-gray-200">
                       <div className="flex justify-between items-center">
-                        <span className="font-bold text-gray-800">총 예상 금액</span>
-                        <span className="price-display">{totalAmount.toLocaleString()}원</span>
+                        <span className="font-bold text-gray-800 text-sm md:text-base">총 예상 금액</span>
+                        <span className="price-display text-lg md:text-2xl">{totalAmount.toLocaleString()}원</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* 버튼 */}
-                <div className="mt-4 space-y-2">
+                <div className="mt-3 md:mt-4 space-y-2">
                   <button
                     onClick={handleSave}
                     disabled={isSending}
-                    className="btn-primary w-full py-3.5 text-base flex items-center justify-center gap-2"
+                    className="btn-primary w-full py-3 md:py-3.5 text-sm md:text-base flex items-center justify-center gap-2"
                   >
                     {isSending ? (
                       <>
@@ -342,16 +349,16 @@ export default function Home() {
                   </button>
                   <button
                     onClick={() => setStep('review')}
-                    className="btn-secondary w-full py-3"
+                    className="btn-secondary w-full py-3 text-sm md:text-base"
                   >
                     이전 단계
                   </button>
                 </div>
 
                 {/* 안내 문구 */}
-                <div className="mt-4 p-4 bg-[#faf8f5] border border-[#e8e0d5] text-sm text-gray-600">
-                  <p className="font-medium text-gray-800 mb-2">안내사항</p>
-                  <ul className="space-y-1 text-xs text-gray-500">
+                <div className="mt-3 md:mt-4 p-3 md:p-4 bg-[#faf8f5] border border-[#e8e0d5] text-xs md:text-sm text-gray-600">
+                  <p className="font-medium text-gray-800 mb-1.5 md:mb-2 text-sm">안내사항</p>
+                  <ul className="space-y-0.5 md:space-y-1 text-[11px] md:text-xs text-gray-500">
                     <li>• 실측 후 최종 금액이 변경될 수 있습니다.</li>
                     <li>• 문의 접수 후 1영업일 내 연락드립니다.</li>
                     <li>• 설치 일정은 상담 시 조율 가능합니다.</li>
