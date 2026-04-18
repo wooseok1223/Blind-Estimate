@@ -171,31 +171,61 @@ function saveEstimate(estimate) {
 
   const items = estimate.items || [];
   const timestamp = new Date().toLocaleString('ko-KR');
+  const estimateId = estimate.id ? estimate.id.slice(0, 8).toUpperCase() : 'N/A';
+  const customerName = estimate.customer ? estimate.customer.name : '';
+  const customerPhone = estimate.customer ? estimate.customer.phone : '';
+  const customerAddress = estimate.customer ? estimate.customer.address : '';
+  const totalAmount = estimate.totalAmount || 0;
+  const notes = estimate.notes || '';
 
+  // 견적 항목이 없는 경우
+  if (items.length === 0) {
+    const row = [
+      estimateId,
+      timestamp,
+      customerName,
+      customerPhone,
+      customerAddress,
+      '-',
+      '-',
+      '(항목 없음)',
+      '-',
+      '-',
+      '-',
+      '-',
+      '-',
+      '-',
+      '-',
+      notes,
+      totalAmount,
+    ];
+    sheet.appendRow(row);
+    return;
+  }
+
+  // 견적 항목 저장
   items.forEach((item, index) => {
     const row = [
-      index === 0 ? estimate.id.slice(0, 8).toUpperCase() : '',
+      index === 0 ? estimateId : '',
       index === 0 ? timestamp : '',
-      index === 0 ? estimate.customer.name : '',
-      index === 0 ? estimate.customer.phone : '',
-      index === 0 ? estimate.customer.address : '',
+      index === 0 ? customerName : '',
+      index === 0 ? customerPhone : '',
+      index === 0 ? customerAddress : '',
       index + 1,
       item.productType === 'blind' ? '블라인드' : '커튼',
-      item.productName,
-      item.room,
-      item.width,
-      item.height,
+      item.productName || '',
+      item.room || '',
+      item.width || '',
+      item.height || '',
       item.color || '',
-      item.quantity,
-      item.unitPrice,
-      item.totalPrice,
-      item.memo || '',
-      index === 0 ? estimate.totalAmount : '',
+      item.quantity || 1,
+      item.unitPrice || 0,
+      item.totalPrice || 0,
+      index === 0 ? notes : (item.memo || ''),
+      index === 0 ? totalAmount : '',
     ];
     sheet.appendRow(row);
   });
-
-  sheet.appendRow([]);
 }
 
 // ===== 견적내역 헤더 =====

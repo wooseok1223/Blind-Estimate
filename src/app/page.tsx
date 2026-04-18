@@ -29,8 +29,6 @@ export default function Home() {
     email: '',
     visitDate: '',
   });
-  const [installationFee, setInstallationFee] = useState(0);
-  const [discount, setDiscount] = useState(0);
   const [notes, setNotes] = useState('');
 
   const [selectedProduct, setSelectedProduct] = useState<{
@@ -57,7 +55,7 @@ export default function Home() {
     setCustomer((prev) => ({ ...prev, ...updates }));
   };
 
-  const { subtotal, totalAmount } = calculateEstimateTotal(items, installationFee, discount);
+  const { subtotal, totalAmount } = calculateEstimateTotal(items, 0, 0);
 
   const handleSave = async () => {
     if (!customer.name || !customer.phone || !customer.address) {
@@ -80,8 +78,8 @@ export default function Home() {
       customer,
       items,
       subtotal,
-      installationFee,
-      discount,
+      installationFee: 0,
+      discount: 0,
       totalAmount,
       notes,
       status: 'draft',
@@ -100,8 +98,6 @@ export default function Home() {
     if (confirm('견적을 초기화하시겠습니까?')) {
       setItems([]);
       setCustomer({ name: '', phone: '', address: '', email: '', visitDate: '' });
-      setInstallationFee(0);
-      setDiscount(0);
       setNotes('');
       setStep('select');
       setMessage(null);
@@ -235,12 +231,8 @@ export default function Home() {
               <div className="lg:col-span-1">
                 <EstimateSummary
                   subtotal={subtotal}
-                  installationFee={installationFee}
-                  discount={discount}
                   totalAmount={totalAmount}
                   notes={notes}
-                  onInstallationFeeChange={setInstallationFee}
-                  onDiscountChange={setDiscount}
                   onNotesChange={setNotes}
                 />
 
