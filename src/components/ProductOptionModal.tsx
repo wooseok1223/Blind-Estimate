@@ -307,16 +307,10 @@ export default function ProductOptionModal({
                 {type === 'blind' && blindProduct.motorOption && (
                   <div className="form-group">
                     <label className="form-label text-xs md:text-sm">추가 옵션</label>
-                    <label
-                      className={`custom-checkbox p-3 ${motorized ? 'selected' : ''}`}
+                    <div
+                      className={`custom-checkbox p-3 cursor-pointer ${motorized ? 'selected' : ''}`}
                       onClick={() => setMotorized(!motorized)}
                     >
-                      <input
-                        type="checkbox"
-                        checked={motorized}
-                        onChange={(e) => setMotorized(e.target.checked)}
-                        className="sr-only"
-                      />
                       <span className={`w-5 h-5 border flex items-center justify-center flex-shrink-0 ${motorized ? 'bg-[#8B7355] border-[#8B7355] text-white' : 'border-gray-300'}`}>
                         {motorized && '✓'}
                       </span>
@@ -326,7 +320,7 @@ export default function ProductOptionModal({
                           (+{formatPrice(blindProduct.motorPrice || 0)})
                         </span>
                       </span>
-                    </label>
+                    </div>
                   </div>
                 )}
 
@@ -367,16 +361,10 @@ export default function ProductOptionModal({
                     {curtainProduct.liningOption && (
                       <div className="form-group">
                         <label className="form-label text-xs md:text-sm">추가 옵션</label>
-                        <label
-                          className={`custom-checkbox p-3 ${lining ? 'selected' : ''}`}
+                        <div
+                          className={`custom-checkbox p-3 cursor-pointer ${lining ? 'selected' : ''}`}
                           onClick={() => setLining(!lining)}
                         >
-                          <input
-                            type="checkbox"
-                            checked={lining}
-                            onChange={(e) => setLining(e.target.checked)}
-                            className="sr-only"
-                          />
                           <span className={`w-5 h-5 border flex items-center justify-center flex-shrink-0 ${lining ? 'bg-[#8B7355] border-[#8B7355] text-white' : 'border-gray-300'}`}>
                             {lining && '✓'}
                           </span>
@@ -386,7 +374,7 @@ export default function ProductOptionModal({
                               (+{formatPrice(curtainProduct.liningPrice || 0)})
                             </span>
                           </span>
-                        </label>
+                        </div>
                       </div>
                     )}
 

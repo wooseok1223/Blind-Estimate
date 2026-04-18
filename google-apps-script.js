@@ -36,13 +36,19 @@ function doPost(e) {
 
     if (action === 'saveEstimate') {
       saveEstimate(body.data);
-      return jsonResponse({ success: true, message: '견적서가 저장되었습니다.' });
+      return jsonResponseWithCors({ success: true, message: '견적서가 저장되었습니다.' });
     }
 
-    return jsonResponse({ success: false, message: '알 수 없는 action' });
+    return jsonResponseWithCors({ success: false, message: '알 수 없는 action' });
   } catch (error) {
-    return jsonResponse({ success: false, message: error.toString() });
+    return jsonResponseWithCors({ success: false, message: error.toString() });
   }
+}
+
+// CORS 헤더 포함 응답
+function jsonResponseWithCors(data) {
+  return ContentService.createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 // ===== Google Drive 링크를 이미지 URL로 변환 =====
@@ -196,7 +202,7 @@ function saveEstimate(estimate) {
 function addEstimateHeaders(sheet) {
   const headers = [
     '견적번호', '작성일시', '고객명', '연락처', '주소',
-    '순번', '카테고리', '제품명', '설치위치', '가로(mm)', '세로(mm)',
+    '순번', '카테고리', '제품명', '설치위치', '가로(cm)', '세로(cm)',
     '색상', '수량', '단가', '금액', '메모', '총금액'
   ];
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);

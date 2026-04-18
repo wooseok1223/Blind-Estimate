@@ -63,25 +63,42 @@ export async function saveEstimate(estimate: Estimate): Promise<{ success: boole
   }
 
   try {
+    // Google Apps Script로 POST 요청
     const response = await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      redirect: 'follow',
       body: JSON.stringify({
         action: 'saveEstimate',
         data: estimate,
       }),
     });
 
-    const result = await response.json();
-    return {
-      success: result.success,
-      message: result.message || '견적서가 저장되었습니다.',
-    };
+    // 응답 확인
+    if (response.ok) {
+      try {
+        const result = await response.json();
+        return {
+          success: result.success !== false,
+          message: result.message || '견적 문의가 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.',
+        };
+      } catch {
+        // JSON 파싱 실패해도 요청은 성공한 것으로 처리
+        return {
+          success: true,
+          message: '견적 문의가 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.',
+        };
+      }
+    } else {
+      return {
+        success: false,
+        message: '저장 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
+      };
+    }
   } catch (error) {
     console.error('견적서 저장 오류:', error);
     return {
       success: false,
-      message: '저장 중 오류가 발생했습니다.',
+      message: '저장 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
     };
   }
 }
