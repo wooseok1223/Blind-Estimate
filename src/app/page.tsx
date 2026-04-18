@@ -88,10 +88,21 @@ export default function Home() {
     const result = await saveEstimate(estimate);
 
     setIsSending(false);
-    setMessage({
-      type: result.success ? 'success' : 'error',
-      text: result.message,
-    });
+
+    if (result.success) {
+      // 성공 시 알림 후 초기화
+      alert(result.message);
+      setItems([]);
+      setCustomer({ name: '', phone: '', address: '', email: '', visitDate: '' });
+      setNotes('');
+      setStep('select');
+      setMessage(null);
+    } else {
+      setMessage({
+        type: 'error',
+        text: result.message,
+      });
+    }
   };
 
   const handleReset = () => {
